@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>API Reference</title>
+    <title>SmartCode API Reference</title>
 
     <link href="stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen" />
     <link href="stylesheets/print.css" rel="stylesheet" type="text/css" media="print" />
@@ -13,7 +13,7 @@
 
       <script>
         $(function() {
-          setupLanguages(["shell","ruby","python"]);
+          setupLanguages(["shell","vb"]);
         });
       </script>
   </head>
@@ -28,9 +28,8 @@
     <div class="tocify-wrapper">
       <img src="images/logo.png" />
         <div class="lang-selector">
-              <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
+              <a href="#" data-language-name="shell">cURL</a>
+              <a href="#" data-language-name="vb">vba</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -39,8 +38,7 @@
       <div id="toc">
       </div>
         <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
-            <li><a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a></li>
+            <li><a href='https://mysmartcode.com/developers/signup'>Sign Up for a Developer Key</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
@@ -48,149 +46,236 @@
       <div class="content">
         <h1 id="introduction">Introduction</h1>
 
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+<p>Welcome to the SmartCode API! If you do not have an API key yet, please sign up for one <a href="https://mysmartcode.com/developers/signup">here</a>. The SmartCode API provides developers with direct access to our backend for use within their medical applications.</p>
 
-<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<p>Code samples are provided to the right of each section.</p>
 
-<p>This example API documentation page was created with <a href="http://github.com/tripit/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&rsquo;s documentation.</p>
+<h1 id="general-equivalence-mappings-gems">General Equivalence Mappings (GEMs)</h1>
 
-<h1 id="authentication">Authentication</h1>
-
-<blockquote>
-<p>To authorize, use this code:</p>
-</blockquote>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
+<h2 id="icd9-to-icd10">ICD9 to ICD10</h2>
 
 <blockquote>
-<p>Make sure to replace <code class="prettyprint">meowmeowmeow</code> with your API key.</p>
+<p>Example Request</p>
 </blockquote>
+<pre class="highlight shell"><code>curl https://api.mysmartcode.com/dev/icd9/gems?q<span class="o">=</span>250.00&amp;callback<span class="o">=</span>angular.callback_0d&amp;token<span class="o">=</span>abcdef1234567890
+</code></pre>
+<pre class="highlight vb"><code><span class="k">Dim</span> <span class="nv">result</span> <span class="ow">As</span> <span class="kt">String</span>
+<span class="k">Dim</span> <span class="nv">myURL</span> <span class="ow">As</span> <span class="kt">String</span>
+<span class="k">Dim</span> <span class="nv">winHttpReq</span> <span class="ow">As</span> <span class="kt">Object</span>
+<span class="k">Set</span> <span class="n">winHttpReq</span> <span class="o">=</span> <span class="n">CreateObject</span><span class="p">(</span><span class="s">"WinHttp.WinHttpRequest.5.1"</span><span class="p">)</span>
 
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
+<span class="n">myURL</span> <span class="o">=</span> <span class="s">"https://api.mysmartcode.com/dev/icd9/gems?q=250.00&amp;token=abcdef1234567890"</span>
 
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+<span class="n">winHttpReq</span><span class="p">.</span><span class="n">Open</span> <span class="s">"GET"</span><span class="p">,</span> <span class="n">myURL</span><span class="p">,</span> <span class="k">False</span>
+<span class="n">winHttpReq</span><span class="p">.</span><span class="n">Send</span>
 
-<p><code class="prettyprint">Authorization: meowmeowmeow</code></p>
+<span class="n">result</span> <span class="o">=</span> <span class="n">winHttpReq</span><span class="p">.</span><span class="n">responseText</span>
+</code></pre>
 
+<blockquote>
+<p>Example Response</p>
+</blockquote>
+<pre class="highlight shell"><code><span class="o">{</span>
+    <span class="s2">"results"</span>: <span class="o">{</span>
+        <span class="s2">"query"</span>: <span class="s2">"250.00"</span>,
+        <span class="s2">"codes_searched"</span>: <span class="s2">"250.00"</span>,
+        <span class="s2">"count"</span>: <span class="s2">"1"</span>,
+        <span class="s2">"type"</span>: <span class="s2">"icd9"</span>,
+        <span class="s2">"crosswalk"</span>: <span class="o">{</span>
+            <span class="s2">"diag"</span>: <span class="o">{</span>
+                <span class="s2">"name"</span>: <span class="s2">"250.00"</span>,
+                <span class="s2">"desc"</span>: <span class="s2">"Diabetes mellitus, Diabetes mellitus without mention of complication, type II or unspecified type, not stated as uncontrolled"</span>,
+                <span class="s2">"fifth_code_details"</span>: <span class="s2">"Fifth-digit 0 is for use for type II patients, even if the patient requires insulin;Use additional code, if applicable, for associated long-term (current) insulin use V58.67"</span>
+            <span class="o">}</span>,
+            <span class="s2">"cross"</span>: <span class="o">[</span>
+                <span class="o">{</span>
+                    <span class="s2">"diag"</span>: <span class="o">{</span>
+                        <span class="s2">"name"</span>: <span class="s2">"E11.9"</span>,
+                        <span class="s2">"desc"</span>: <span class="s2">"Type 2 diabetes mellitus without complications"</span>
+                    <span class="o">}</span>,
+                    <span class="s2">"icd9gem"</span>: <span class="o">{</span>
+                        <span class="s2">"icd9code"</span>: <span class="s2">"250.00"</span>,
+                        <span class="s2">"icd10code"</span>: <span class="s2">"E11.9"</span>,
+                        <span class="s2">"flag"</span>: <span class="s2">"10000"</span>
+                    <span class="o">}</span>,
+                    <span class="s2">"icd10_cross"</span>: <span class="o">{</span>
+                        <span class="s2">"icd10gem"</span>: <span class="o">{</span>
+                            <span class="s2">"icd10code"</span>: <span class="s2">"E11.9"</span>,
+                            <span class="s2">"icd9code"</span>: <span class="s2">"250.00"</span>,
+                            <span class="s2">"flag"</span>: <span class="s2">"10000"</span>
+                        <span class="o">}</span>
+                    <span class="o">}</span>
+                <span class="o">}</span>,
+                <span class="o">{</span>
+                    <span class="s2">"diag"</span>: <span class="o">{</span>
+                        <span class="s2">"name"</span>: <span class="s2">"E11.9"</span>,
+                        <span class="s2">"desc"</span>: <span class="s2">"Type 2 diabetes mellitus without complications"</span>
+                    <span class="o">}</span>,
+                    <span class="s2">"icd10gem"</span>: <span class="o">{</span>
+                        <span class="s2">"icd10code"</span>: <span class="s2">"E11.9"</span>,
+                        <span class="s2">"icd9code"</span>: <span class="s2">"250.00"</span>,
+                        <span class="s2">"flag"</span>: <span class="s2">"10000"</span>
+                    <span class="o">}</span>,
+                    <span class="s2">"icd10_cross"</span>: <span class="o">{</span>
+                        <span class="s2">"icd10gem"</span>: <span class="o">{</span>
+                            <span class="s2">"icd10code"</span>: <span class="s2">"E11.9"</span>,
+                            <span class="s2">"icd9code"</span>: <span class="s2">"250.00"</span>,
+                            <span class="s2">"flag"</span>: <span class="s2">"10000"</span>
+                        <span class="o">}</span>
+                    <span class="o">}</span>
+                <span class="o">}</span>,
+                <span class="o">{</span>
+                    <span class="s2">"diag"</span>: <span class="o">{</span>
+                        <span class="s2">"name"</span>: <span class="s2">"E13.9"</span>,
+                        <span class="s2">"desc"</span>: <span class="s2">"Other specified diabetes mellitus without complications"</span>
+                    <span class="o">}</span>,
+                    <span class="s2">"icd10gem"</span>: <span class="o">{</span>
+                        <span class="s2">"icd10code"</span>: <span class="s2">"E13.9"</span>,
+                        <span class="s2">"icd9code"</span>: <span class="s2">"250.00"</span>,
+                        <span class="s2">"flag"</span>: <span class="s2">"10000"</span>
+                    <span class="o">}</span>,
+                    <span class="s2">"icd10_cross"</span>: <span class="o">[</span>
+                        <span class="o">{</span>
+                            <span class="s2">"icd10gem"</span>: <span class="o">{</span>
+                                <span class="s2">"icd10code"</span>: <span class="s2">"E13.9"</span>,
+                                <span class="s2">"icd9code"</span>: <span class="s2">"249.00"</span>,
+                                <span class="s2">"flag"</span>: <span class="s2">"10000"</span>
+                            <span class="o">}</span>
+                        <span class="o">}</span>,
+                        <span class="o">{</span>
+                            <span class="s2">"icd10gem"</span>: <span class="o">{</span>
+                                <span class="s2">"icd10code"</span>: <span class="s2">"E13.9"</span>,
+                                <span class="s2">"icd9code"</span>: <span class="s2">"250.00"</span>,
+                                <span class="s2">"flag"</span>: <span class="s2">"10000"</span>
+                            <span class="o">}</span>
+                        <span class="o">}</span>
+                    <span class="o">]</span>
+                <span class="o">}</span>
+            <span class="o">]</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+<pre class="highlight plaintext"><code>{
+    "results": {
+        "query": "250.00",
+        "codes_searched": "250.00",
+        "count": "1",
+        "type": "icd9",
+        "crosswalk": {
+            "diag": {
+                "name": "250.00",
+                "desc": "Diabetes mellitus, Diabetes mellitus without mention of complication, type II or unspecified type, not stated as uncontrolled",
+                "fifth_code_details": "Fifth-digit 0 is for use for type II patients, even if the patient requires insulin;Use additional code, if applicable, for associated long-term (current) insulin use V58.67"
+            },
+            "cross": [
+                {
+                    "diag": {
+                        "name": "E11.9",
+                        "desc": "Type 2 diabetes mellitus without complications"
+                    },
+                    "icd9gem": {
+                        "icd9code": "250.00",
+                        "icd10code": "E11.9",
+                        "flag": "10000"
+                    },
+                    "icd10_cross": {
+                        "icd10gem": {
+                            "icd10code": "E11.9",
+                            "icd9code": "250.00",
+                            "flag": "10000"
+                        }
+                    }
+                },
+                {
+                    "diag": {
+                        "name": "E11.9",
+                        "desc": "Type 2 diabetes mellitus without complications"
+                    },
+                    "icd10gem": {
+                        "icd10code": "E11.9",
+                        "icd9code": "250.00",
+                        "flag": "10000"
+                    },
+                    "icd10_cross": {
+                        "icd10gem": {
+                            "icd10code": "E11.9",
+                            "icd9code": "250.00",
+                            "flag": "10000"
+                        }
+                    }
+                },
+                {
+                    "diag": {
+                        "name": "E13.9",
+                        "desc": "Other specified diabetes mellitus without complications"
+                    },
+                    "icd10gem": {
+                        "icd10code": "E13.9",
+                        "icd9code": "250.00",
+                        "flag": "10000"
+                    },
+                    "icd10_cross": [
+                        {
+                            "icd10gem": {
+                                "icd10code": "E13.9",
+                                "icd9code": "249.00",
+                                "flag": "10000"
+                            }
+                        },
+                        {
+                            "icd10gem": {
+                                "icd10code": "E13.9",
+                                "icd9code": "250.00",
+                                "flag": "10000"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
+</code></pre>
+
+<p>The GEMs provide a mapping between ICD9 codes and ICD10 codes. This endpoint provides the ICD10 equivalents to an ICD9 code. 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-
-<h1 id="kittens">Kittens</h1>
-
-<h2 id="get-all-kittens">Get All Kittens</h2>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre>
-<pre class="highlight shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
-
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Isis"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
-
-<p>This endpoint retrieves all kittens.</p>
+This endpoint will perform a query for subcodes if the query does not return a value. For example, a search for <code class="prettyprint">250.0</code> will not yield any results, so the system will search on the following codes to provide a result: 250.00, 250.01, 250.02, 250.03
+</aside></p>
 
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET http://example.com/api/kittens</code></p>
+<p><code class="prettyprint">GET /icd9/gems</code></p>
+
+<h3 id="response">Response</h3>
 
 <h3 id="query-parameters">Query Parameters</h3>
 
 <table><thead>
 <tr>
 <th>Parameter</th>
-<th>Default</th>
+<th>Required</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
+<td>q</td>
+<td>true</td>
+<td>The ICD9 code to be searched</td>
 </tr>
 <tr>
-<td>available</td>
+<td>token</td>
 <td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
+<td>Your API Token</td>
+</tr>
+<tr>
+<td>callback</td>
+<td>false</td>
+<td>The callback parameter for JSONP requests</td>
 </tr>
 </tbody></table>
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-<h2 id="get-a-specific-kitten">Get a Specific Kitten</h2>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
-
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Isis"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-
-<p>This endpoint retrieves a specific kitten.</p>
-
-<aside class="warning">If you&rsquo;re not using an administrator API key, note that some kittens will return 403 Forbidden if they are hidden for admins only.</aside>
-
-<h3 id="http-request">HTTP Request</h3>
-
-<p><code class="prettyprint">GET http://example.com/kittens/&lt;ID&gt;</code></p>
-
-<h3 id="url-parameters">URL Parameters</h3>
+<h3 id="the-results-object">The <code class="prettyprint">results</code> object</h3>
 
 <table><thead>
 <tr>
@@ -199,16 +284,190 @@ Remember — a happy kitten is an authenticated kitten!
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
+<td>query</td>
+<td>The incoming query from the <code class="prettyprint">q</code> parameter</td>
+</tr>
+<tr>
+<td>codes_searched</td>
+<td>The codes and subcodes searched</td>
+</tr>
+<tr>
+<td>count</td>
+<td>The number of GEMs found</td>
+</tr>
+<tr>
+<td>type</td>
+<td>The codebase, <code class="prettyprint">ICD9</code></td>
+</tr>
+<tr>
+<td>crosswalk</td>
+<td>The object containing the GEMs information</td>
+</tr>
+</tbody></table>
+
+<h3 id="the-crosswalk-object">The <code class="prettyprint">crosswalk</code> object</h3>
+
+<p>This object will be a hash if there is only one item, or it will be an array if there are multiple
+items. These items are the GEMs for the query.</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>diag</td>
+<td>The object containing information about the ICD9 code</td>
+</tr>
+<tr>
+<td>cross</td>
+<td>The object containing the GEMs data for the ICD9 in diag</td>
+</tr>
+</tbody></table>
+
+<h3 id="the-diag-object">The <code class="prettyprint">diag</code> object</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>desc</td>
+<td>The long description for the code in the codebase</td>
+</tr>
+<tr>
+<td>fifth_code_details</td>
+<td>Includes information about the required fifth code, if it exists</td>
+</tr>
+</tbody></table>
+
+<h3 id="the-cross-object">The <code class="prettyprint">cross</code> object</h3>
+
+<p>The cross object contains all the GEMs linked to this code</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>diag</td>
+<td>The ICD10 code information</td>
+</tr>
+<tr>
+<td>icd9gem</td>
+<td>The object containing GEM information about the ICD9-ICD10</td>
+</tr>
+<tr>
+<td>icd10_cross</td>
+<td>The GEM information for this ICD10 code</td>
+</tr>
+</tbody></table>
+
+<h3 id="the-icd9gem-object">The <code class="prettyprint">icd9gem</code> object</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>icd9code</td>
+<td>The ICD9 code</td>
+</tr>
+<tr>
+<td>icd10code</td>
+<td>The ICD10 code</td>
+</tr>
+<tr>
+<td>flag</td>
+<td>The flag definition of the GEM</td>
+</tr>
+</tbody></table>
+
+<h3 id="the-icd10_cross-object">The <code class="prettyprint">icd10_cross</code> object</h3>
+
+<p>The icd10_cross object is included for completeness and includes the crosswalk data for the
+ICD10 code. This is either a hash or array of icd10gem objects.</p>
+
+<h3 id="the-icd10gem-object">The <code class="prettyprint">icd10gem</code> object</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>icd10code</td>
+<td>The ICD10 code</td>
+</tr>
+<tr>
+<td>icd9code</td>
+<td>The ICD9 code</td>
+</tr>
+<tr>
+<td>flag</td>
+<td>The flag definition of the GEM</td>
+</tr>
+</tbody></table>
+
+<h2 id="icd10-to-icd9">ICD10 to ICD9</h2>
+
+<p>To be documented.</p>
+
+<h2 id="gems-flags">GEMs Flags</h2>
+
+<p>Flags <code class="prettyprint">3</code> and <code class="prettyprint">4</code> are used to clarify the combination flag (Flag <code class="prettyprint">2</code>)</p>
+
+<table><thead>
+<tr>
+<th>Position</th>
+<th>Name</th>
+<th>Notes</th>
+<th>Example</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>0</td>
+<td>Approximate</td>
+<td>1 = translation is approximate; 0 = translation is identical</td>
+<td><code class="prettyprint">1</code>0112</td>
+</tr>
+<tr>
+<td>1</td>
+<td>No Map</td>
+<td>1 = no plausible translation; 0 = at least one plausible translation</td>
+<td>1<code class="prettyprint">0</code>112</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Combination</td>
+<td>1 = the code maps to more than one code; 0 = the code maps to a single code</td>
+<td>10<code class="prettyprint">1</code>12</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Scenario</td>
+<td>More then one code is required in the target system.</td>
+<td>101<code class="prettyprint">1</code>2</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Choice List</td>
+<td>Used the translation alternatives in a combination code</td>
+<td>1011<code class="prettyprint">2</code></td>
 </tr>
 </tbody></table>
 
           <h1 id="errors">Errors</h1>
 
-<aside class="notice">This error section is stored in a separate file in `includes/_errors.md`. Slate allows you to optionally separate out your docs into many files&hellip;just save them to the `includes` folder and add them to the top of your `index.md`&rsquo;s frontmatter. Files are included in the order listed.</aside>
-
-<p>The Kittn API uses the following error codes:</p>
+<p>The SmartCode API uses the following error codes:</p>
 
 <table><thead>
 <tr>
@@ -226,31 +485,23 @@ Remember — a happy kitten is an authenticated kitten!
 </tr>
 <tr>
 <td>403</td>
-<td>Forbidden &ndash; The kitten requested is hidden for administrators only</td>
+<td>Forbidden &ndash; The object requested is hidden for administrators only</td>
 </tr>
 <tr>
 <td>404</td>
-<td>Not Found &ndash; The specified kitten could not be found</td>
+<td>Not Found &ndash; The specified object could not be found</td>
 </tr>
 <tr>
 <td>405</td>
-<td>Method Not Allowed &ndash; You tried to access a kitten with an invalid method</td>
+<td>Method Not Allowed &ndash; You tried to access a object with an invalid method</td>
 </tr>
 <tr>
 <td>406</td>
 <td>Not Acceptable &ndash; You requested a format that isn&rsquo;t json</td>
 </tr>
 <tr>
-<td>410</td>
-<td>Gone &ndash; The kitten requested has been removed from our servers</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&rsquo;m a teapot</td>
-</tr>
-<tr>
 <td>429</td>
-<td>Too Many Requests &ndash; You&rsquo;re requesting too many kittens! Slow down!</td>
+<td>Too Many Requests &ndash; You&rsquo;re requesting too many objects! Slow down!</td>
 </tr>
 <tr>
 <td>500</td>
@@ -265,9 +516,8 @@ Remember — a happy kitten is an authenticated kitten!
       </div>
       <div class="dark-box">
           <div class="lang-selector">
-                <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
+                <a href="#" data-language-name="shell">cURL</a>
+                <a href="#" data-language-name="vb">vba</a>
           </div>
       </div>
     </div>
